@@ -50,7 +50,7 @@ app.post('/patientDetail',(req,res,next)=>{
         address:req.body.address,
         DoctorId:req.body.docId
     })
-    res.send({status:true})
+    res.send({status:true,PatientId:user_id})
 })
 app.get('/getData',(req,res,next)=>{
     
