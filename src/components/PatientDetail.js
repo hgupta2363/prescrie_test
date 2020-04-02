@@ -105,7 +105,7 @@ import './css/Patient.css'
           }
         axios.post('http://localhost:5000/patientDetail',NewUser).then(res=>{
           if(res.data.status)
-         window.location="/"+res.data.PatientId
+         window.location="/PaymentGateway/"+res.data.PatientId
         })
        
 

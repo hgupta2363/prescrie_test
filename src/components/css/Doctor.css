@@ -6,6 +6,7 @@
   justify-content: space-between;
    flex-wrap: wrap;
    flex-shrink: initial;
+   margin-top: 20px;
 }
 .link{
     text-decoration: none !important;
