@@ -48,9 +48,17 @@ app.post('/patientDetail',(req,res,next)=>{
         phone:req.body.phone,
         sex:req.body.sex,
         address:req.body.address,
-        DoctorId:req.body.docId
+        DoctorId:req.body.docId,
+        HospitalName:HospitalName,
+        docName:req.body.docName,
+        Slot:req.body.Slot
     })
-    res.send({status:true,PatientId:user_id})
+    res.send({status:true,PatientId:user_id,HosName:HospitalName})
+})
+app.get('/final/:name',(req,res,next)=>{
+    database.ref('/patients_data/'+req.params.name).once('value',snap=>{
+       res.send(snap.val())
+    })
 })
 app.get('/getData',(req,res,next)=>{
     

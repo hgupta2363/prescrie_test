@@ -6,16 +6,25 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import './css/Zoom.css'
 import {Link} from "react-router-dom";
+import axios from 'axios';
 
 export default class Zoomcall extends Component{
   state={
-     Token:''
+     Name:'',
   }
   componentDidMount()
-  {   var id=window.location.pathname.split('/')[2]
-      this.setState({
-        Token:id
-      })
+  {   
+      var id=window.location.pathname.split('/')[2]
+      axios.get('http://localhost:5000/final/'+id).then(res=>{
+            this.setState({
+                Name:res.data.docName.replace(/%20/g, " "),
+                HospName:res.data.HospitalName.replace(/%20/g, " "),
+                DocName:res.data.docName.replace(/%20/g, " "),
+                Slot:res.data.Slot.replace(/%20/g, " "),
+                Pname:res.data.name.replace(/%20/g, " ")
+
+              })
+        })
   }
   render()
   {
@@ -39,8 +48,13 @@ export default class Zoomcall extends Component{
             value="7lstjK9NTyett_oeXtFiEQ&redirect_uri=https://yourapp.com"
           />
         </Grid>
-        <Grid item xs={12}>
-          
+        <Grid item xs={12} class="zoom-para">
+        Dear <b>{this.state.Pname}</b> your appointment has been confirmed at <b>{this.state.HospName}</b> hospital with Doc <b>{this.state.docName}</b> at <b>{this.state.Slot}</b> hours. "
+        Please install Zoom app using the below link for video consulting with your Doctor.
+        <link/>
+        Requesting you to follow the live status through whats-app by typing "STATUS"
+        Kindly note that the doctor's availability and token order may vary to handle emergency cases.
+        We will alert you once the Doctor is ready
         </Grid>
       </Grid>
     </React.Fragment>

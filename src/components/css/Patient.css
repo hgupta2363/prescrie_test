@@ -11,3 +11,8 @@ body{
     display: flex;
     justify-content: center;
 }
+select{
+    font-size: 15px;
+    font-family: 'Montserrat', sans-serif;;
+    padding: 12px;
+}

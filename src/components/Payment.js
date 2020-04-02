@@ -6,12 +6,16 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from 'react-bootstrap/Button';
 import './css/Payment.css'
+import axios from 'axios'
 
-export default class PaymentForm extends Component {
+ class PaymentForm extends Component {
     onSubmit(e)
     {
         e.preventDefault()
-        window.location='/zoom_call_token'
+        var id=window.location.pathname.split('/')[3]
+        axios.get('http://localhost:5000/final/'+id).then(res=>{
+            window.location='/zoom_call_token/'+res.data.HospitalName
+        })
     }
   render()
   
@@ -60,4 +64,5 @@ export default class PaymentForm extends Component {
   );
 }
 }
+export default PaymentForm
 
