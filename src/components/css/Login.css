@@ -1,0 +1,50 @@
+.login-class{
+    display: flex;
+ 
+  
+    margin: 20px;
+  
+}
+.col-lg-5{
+    background-color:#f5f5f5 !important;
+    border-top-right-radius: 20%;
+    border-bottom-right-radius: 20%;
+    transform: translateY(-5px);
+}
+form{
+    padding: 25px;
+    padding-right: 70px;
+
+}
+.row{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap-reverse;
+    justify-content: space-between !important;
+    justify-content: space-around !important;
+}
+label{
+    border: 0px !important;
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 500 !important;
+    font-size: 16px !important;
+}
+input{
+    border: 0px !important;
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 500 !important;
+    font-size: 16px !important;
+}
+button{
+    border: 0px !important;
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 500 !important;
+    font-size: 16px !important;
+   
+}
+button:active {
+    outline: none !important;
+    border: none !important;
+    }
+    
+    button:focus {outline:0 !important;}

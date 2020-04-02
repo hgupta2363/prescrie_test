@@ -1,0 +1,13 @@
+.row{
+    justify-content: center;
+    
+
+}
+body{
+    overflow-y: scroll;
+}
+
+.heading-Patient{
+    display: flex;
+    justify-content: center;
+}
