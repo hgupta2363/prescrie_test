@@ -5,16 +5,18 @@ import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from 'react-bootstrap/Button';
-import './css/Payment.css'
+import './payment.css'
 import axios from 'axios'
 
  class PaymentForm extends Component {
-    onSubmit(e)
+  handlePayment(e)
     {
         e.preventDefault()
-        var id=window.location.pathname.split('/')[3]
-        axios.get('http://localhost:5000/final/'+id).then(res=>{
-            window.location='/zoom_call_token/'+res.data.HospitalName
+        var id=window.location.pathname.split('/')
+        console.log(id)
+        axios.get('http://localhost:5000/final').then(res=>{
+          console.log(res)
+          window.location.href = res.data;
         })
     }
   render()
@@ -23,44 +25,15 @@ import axios from 'axios'
 
   
     return (
-      <form className="container payment-grid" onSubmit={this.onSubmit}>
-    <React.Fragment>
-      <Typography variant="h6" gutterBottom>
-        Payment method
-      </Typography>
-      <Grid container spacing={3}>
-        <Grid item xs={12} md={6}>
-          <TextField required id="cardName" label="Name on card" fullWidth />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <TextField required id="cardNumber" label="Card number" fullWidth />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <TextField required id="expDate" label="Expiry date" fullWidth />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <TextField
-            required
-            id="cvv"
-            label="CVV"
-            helperText="Last three digits on signature strip"
-            fullWidth
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <FormControlLabel
-            control={<Checkbox color="secondary" name="saveCard" value="yes" />}
-            label="Remember credit card details for next time"
-          />
-        </Grid>
-      </Grid>
-    </React.Fragment>
-    <div className="btn">
-    <Button type="submit" >SUBMIT</Button>
-    </div>
-    
+      <div class="card">
+                   
+      <h1>Dr. verma</h1>
+      <p class="price">$19.99</p>
+      <p>Some text about the doctor</p>
    
-    </form>
+          <button onClick={this.handlePayment}>Pay now</button>
+         
+    </div>
   );
 }
 }

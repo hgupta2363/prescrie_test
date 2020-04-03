@@ -112,7 +112,7 @@ import { getDefaultNormalizer } from '@testing-library/react';
           console.log(NewUser)
         axios.post('http://localhost:5000/patientDetail',NewUser).then(res=>{
           if(res.data.status)
-         window.location="/Payment_Gateway/"+res.data.PatientId+'/'+res.data.HosName;
+         window.location="/Payment_Gateway/"+res.data.PatientId+'/'+res.data.HosName+'/'+id[2]+'/'+id[3]+'/'+id[4]+'/'+id[5];
           console.log(res.data.status)
         })
        

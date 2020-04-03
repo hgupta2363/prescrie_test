@@ -7,14 +7,14 @@ import Checkbox from '@material-ui/core/Checkbox';
 import './css/Zoom.css'
 import {Link} from "react-router-dom";
 import axios from 'axios';
-
+import nl2br from 'react-newline-to-break'; 
 export default class Zoomcall extends Component{
   state={
      Name:'',
   }
   componentDidMount()
   {   
-      var id=window.location.pathname.split('/')[2]
+    /*  var id=window.location.pathname.split('/')[2]
       axios.get('http://localhost:5000/final/'+id).then(res=>{
             this.setState({
                 Name:res.data.docName.replace(/%20/g, " "),
@@ -24,10 +24,11 @@ export default class Zoomcall extends Component{
                 Pname:res.data.name.replace(/%20/g, " ")
 
               })
-        })
+        })*/
   }
   render()
   {
+    const mystring="\n7lstjK9NTyett_oeXtFiEQ&redirect_uri=https://yourapp.com\n"
     return (
       <div className="zoom-grid container">
       <React.Fragment>
@@ -49,9 +50,9 @@ export default class Zoomcall extends Component{
           />
         </Grid>
         <Grid item xs={12} class="zoom-para">
-        Dear <b>{this.state.Pname}</b> your appointment has been confirmed at <b>{this.state.HospName}</b> hospital with Doc <b>{this.state.docName}</b> at <b>{this.state.Slot}</b> hours. "
+        Dear <b>Himashu</b> your appointment has been confirmed at <b>SMS</b> hospital with Doc <b>DR.R Gowri</b> at 03 hours. "
         Please install Zoom app using the below link for video consulting with your Doctor.
-        <link/>
+    <Link>{nl2br(mystring)}</Link>
         Requesting you to follow the live status through whats-app by typing "STATUS"
         Kindly note that the doctor's availability and token order may vary to handle emergency cases.
         We will alert you once the Doctor is ready

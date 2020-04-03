@@ -3,6 +3,7 @@ const cors=require('cors')
 const bodyParser=require('body-parser');
 port=5000;
 var firebase = require("firebase");
+const Insta = require('instamojo-nodejs');
 app.use(cors());
 var dets=[]
 // var serviceAccount = require('C:/Users/chdno/Desktop/All desktop Files/PresAssignment/my-app/backend/prescribetask-firebase-adminsdk-jh3c7-d97cd99717.json');
@@ -29,7 +30,6 @@ const config = {
 
 
 
-
 // var expressSession=require('express-session')
 // app.use(expressSession({secret:'max',saveUninitialised:false,re save:false}))
 // app.get('/',(req,res,next)=>{
@@ -37,6 +37,47 @@ const config = {
 //       res.send(snap.val())
 //     })
 // })
+app.get("/final",(req,res,next)=>{
+    Insta.setKeys('test_26d6db7fdb9cf8319c5413c8454', 'test_5c2bc0dd788ecd74e17052e5541');
+
+	const data = new Insta.PaymentData();
+    Insta.isSandboxMode(true);
+    data.purpose =  "just check";
+	data.amount =10;
+	data.buyer_name ="Himashu ";
+	data.redirect_url =  `http://localhost:3000/payment_status`;
+	data.phone="8118853410"
+	data.send_email =  false;
+	data.webhook= 'http://www.example.com/webhook/';
+	data.send_sms= false;
+    data.allow_repeated_payments =  false;
+    Insta.createPayment(data, function(error, response) {
+		if (error) {
+		console.log(error)
+		} else {
+			// Payment redirection link at response.payment_request.longurl
+            const responseData = JSON.parse( response );
+            console.log(responseData)
+			const redirectUrl = responseData.payment_request.longurl;
+			console.log( redirectUrl );
+
+			res.status( 200 ).json( redirectUrl );
+		}
+	});
+
+
+})
+app.get("/callack",(req,res,next)=>{
+    let url_parts = url.parse( req.url, true),
+    responseData = url_parts.query;
+    if ( responseData.payment_id ) {
+
+        return res.redirect('http://localhost:3000/payment_status'+'/'+responseData.payment_id );
+
+    }
+
+
+})
 app.post('/patientDetail',(req,res,next)=>{
     const user_id=database.ref('/patients_data').push().key
     const HospitalName="Dummy";
@@ -55,11 +96,11 @@ app.post('/patientDetail',(req,res,next)=>{
     })
     res.send({status:true,PatientId:user_id,HosName:HospitalName})
 })
-app.get('/final/:name',(req,res,next)=>{
-    database.ref('/patients_data/'+req.params.name).once('value',snap=>{
-       res.send(snap.val())
-    })
-})
+//app.get('/final/:name',(req,res,next)=>{
+   // database.ref('/patients_data/'+req.params.name).once('value',snap=>{
+     //  res.send(snap.val())
+    //})
+//})
 app.get('/getData',(req,res,next)=>{
     
     var doc=new Array();
@@ -160,6 +201,13 @@ app.post('/Logout',(req,res,next)=>{
    res.json({
        destroyed:true
    })
+})
+
+app.post("/callback",(req,res,next)=>{
+    
+   const data=req.body
+    res.json(data)
+       
 })
 app.listen(port,()=>{
     console.log(`Runninnnn on ${port}`)
